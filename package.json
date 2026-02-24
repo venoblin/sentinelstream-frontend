@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/open-sans": "^5.2.7",
+    "@fontsource/pt-mono": "^5.2.8",
+    "@salt-ds/core": "^1.57.1",
+    "@salt-ds/icons": "^1.17.1",
+    "@salt-ds/theme": "^1.40.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
