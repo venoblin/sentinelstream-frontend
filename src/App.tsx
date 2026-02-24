@@ -1,5 +1,5 @@
 import './App.css'
-import { Link, useLocation } from 'react-router'
+import { href, Link, useLocation } from 'react-router'
 import {
   BorderItem,
   BorderLayout,
@@ -14,13 +14,31 @@ function App() {
     {
       href: '/',
       title: 'Dashboard'
+    },
+    {
+      href: 'Customers',
+      title: 'Customers'
+    },
+    {
+      href: '/transactions',
+      title: 'Transactions'
+    },
+    {
+      href: '/devices',
+      title: 'Devices'
+    },
+    {
+      href: '/logs',
+      title: 'Logs'
     }
   ]
 
   return (
     <>
       <BorderLayout>
-        <BorderItem position="north"></BorderItem>
+        <BorderItem position="north">
+          <header>SentinelStream</header>
+        </BorderItem>
 
         <BorderItem position="west">
           <StackLayout
@@ -44,9 +62,7 @@ function App() {
         </BorderItem>
 
         <BorderItem position="center">
-          <StackLayout>
-            <header>SentinelStream</header>
-          </StackLayout>
+          <StackLayout></StackLayout>
         </BorderItem>
       </BorderLayout>
     </>
