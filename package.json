@@ -16,7 +16,9 @@
     "@salt-ds/icons": "^1.17.1",
     "@salt-ds/theme": "^1.40.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-router": "^7.13.1",
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

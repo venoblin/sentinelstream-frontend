@@ -1,18 +1,54 @@
 import './App.css'
-import { Button, StackLayout, Text } from '@salt-ds/core'
-import { NotificationIcon } from '@salt-ds/icons'
+import { Link, useLocation } from 'react-router'
+import {
+  BorderItem,
+  BorderLayout,
+  StackLayout,
+  NavigationItem
+} from '@salt-ds/core'
 
 function App() {
+  const location = useLocation()
+
+  const navData = [
+    {
+      href: '/',
+      title: 'Dashboard'
+    }
+  ]
+
   return (
     <>
-      <h1>SentinelStream</h1>
+      <BorderLayout>
+        <BorderItem position="north"></BorderItem>
 
-      <StackLayout gap={2} style={{ padding: 20 }}>
-        <Text styleAs="h1">SentinelStream Dashboard</Text>
-        <Button variant="cta">
-          <NotificationIcon /> Acknowledge Fraud Alert
-        </Button>
-      </StackLayout>
+        <BorderItem position="west">
+          <StackLayout
+            as="ul"
+            gap="var(--salt-spacing-fixed-100)"
+            style={{ listStyle: 'none' }}
+          >
+            {navData.map((item) => (
+              <li key={item.href}>
+                <NavigationItem
+                  href={item.href}
+                  orientation="vertical"
+                  render={<Link to={item.href} />}
+                  active={location.pathname === item.href}
+                >
+                  {item.title}
+                </NavigationItem>
+              </li>
+            ))}
+          </StackLayout>
+        </BorderItem>
+
+        <BorderItem position="center">
+          <StackLayout>
+            <header>SentinelStream</header>
+          </StackLayout>
+        </BorderItem>
+      </BorderLayout>
     </>
   )
 }
