@@ -1,3 +1,4 @@
+import './index.css'
 import '@fontsource/open-sans/300.css'
 import '@fontsource/open-sans/300-italic.css'
 import '@fontsource/open-sans/400.css'
@@ -12,19 +13,25 @@ import '@fontsource/open-sans/800.css'
 import '@fontsource/open-sans/800-italic.css'
 import '@fontsource/pt-mono/400.css'
 import '@salt-ds/theme/index.css'
-import './index.css'
+import '@salt-ds/theme/css/theme-next.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { SaltProvider } from '@salt-ds/core'
+import { SaltProviderNext } from '@salt-ds/core'
 import { BrowserRouter } from 'react-router'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <SaltProvider>
+      <SaltProviderNext
+        mode="dark"
+        accent="teal"
+        corner="rounded"
+        headingFont="Amplitude"
+        actionFont="Amplitude"
+      >
         <App />
-      </SaltProvider>
+      </SaltProviderNext>
     </BrowserRouter>
   </StrictMode>
 )

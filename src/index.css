@@ -1,27 +1,50 @@
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+@font-face {
+  font-family: Amplitude;
+  font-style: normal;
+  font-weight: 300;
+  src:
+    local('Amplitude Light'),
+    url('../public/fonts/amplitude-light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Amplitude;
+  font-style: normal;
   font-weight: 400;
+  src:
+    local('Amplitude'),
+    url('../public/fonts/amplitude-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Amplitude;
+  font-style: normal;
+  font-weight: 500;
+  src:
+    local('Amplitude Medium'),
+    url('../public/fonts/amplitude-medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Amplitude;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Amplitude Bold'),
+    url('../public/fonts/amplitude-bold.woff2') format('woff2');
+}
+
+:root {
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400; */
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #e7ecef;
+  background-color: #272932;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-} */

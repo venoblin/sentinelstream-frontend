@@ -1,13 +1,14 @@
 import './App.css'
-import { href, Link, useLocation } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import {
   BorderItem,
   BorderLayout,
   StackLayout,
   NavigationItem
 } from '@salt-ds/core'
+import Logo from './components/Logo'
 
-function App() {
+const App = () => {
   const location = useLocation()
 
   const navData = [
@@ -37,7 +38,7 @@ function App() {
     <>
       <BorderLayout>
         <BorderItem position="north">
-          <header>SentinelStream</header>
+          <Logo />
         </BorderItem>
 
         <BorderItem position="west">
