@@ -1,7 +1,7 @@
 import './App.css'
 import Logo from './components/Logo'
 import { Link, Routes, Route, useLocation, useNavigate } from 'react-router'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import {
   BorderItem,
   BorderLayout,
@@ -11,12 +11,10 @@ import {
 import { AuthContext } from './contexts/AuthContext'
 import LoginRoute from './routes/LoginRoute'
 import RegisterRoute from './routes/RegisterRoute'
-import NotFoundRoute from './routes/NotFoundRoute'
 
 const App = () => {
   const authContext = useContext(AuthContext)
   const location = useLocation()
-  const navigate = useNavigate()
 
   const routes = [
     {
@@ -40,11 +38,6 @@ const App = () => {
       title: 'Logs'
     }
   ]
-
-  useEffect(() => {
-    if (location.pathname === '/' && !authContext?.isAuthenticated)
-      navigate('/login')
-  })
 
   return (
     <>
@@ -85,9 +78,8 @@ const App = () => {
                 </>
               ) : (
                 <>
-                  <Route path="/login" element={<LoginRoute />} />
                   <Route path="/register" element={<RegisterRoute />} />
-                  <Route path="*" element={<NotFoundRoute />} />
+                  <Route path="*" element={<LoginRoute />} />
                 </>
               )}
             </Routes>
