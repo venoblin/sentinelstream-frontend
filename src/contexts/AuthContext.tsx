@@ -1,9 +1,15 @@
-import { createContext } from 'react'
+import type { Authenticated } from '../types/auth'
+import { createContext, useState } from 'react'
 
-const AuthContext = createContext({})
+export const AuthContext = createContext<Authenticated | null>(null)
 
-const AuthProvider = (props: React.PropsWithChildren) => {
-  const methods = {}
+export const AuthProvider = (props: React.PropsWithChildren) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const methods = {
+    isAuthenticated,
+    setIsAuthenticated
+  }
 
   return (
     <AuthContext.Provider value={methods}>
@@ -11,5 +17,3 @@ const AuthProvider = (props: React.PropsWithChildren) => {
     </AuthContext.Provider>
   )
 }
-
-export default AuthProvider
