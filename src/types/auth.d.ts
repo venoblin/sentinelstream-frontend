@@ -1,4 +1,4 @@
-export interface Authenticated {
+export interface AuthContextType {
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 }

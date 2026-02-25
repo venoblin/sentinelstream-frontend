@@ -1,7 +1,7 @@
-import type { Authenticated } from '../types/auth'
+import type { AuthContextType } from '../types/auth'
 import { createContext, useState } from 'react'
 
-export const AuthContext = createContext<Authenticated | null>(null)
+export const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = (props: React.PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)

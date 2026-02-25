@@ -1,6 +1,7 @@
 import './App.css'
 import Logo from './components/Logo'
-import { Link, Routes, Route, useLocation, useNavigate } from 'react-router'
+import type { RouteType } from './types'
+import { Link, Routes, Route, useLocation } from 'react-router'
 import { useContext } from 'react'
 import {
   BorderItem,
@@ -16,7 +17,7 @@ const App = () => {
   const authContext = useContext(AuthContext)
   const location = useLocation()
 
-  const routes = [
+  const routes: RouteType[] = [
     {
       href: '/',
       title: 'Dashboard'
