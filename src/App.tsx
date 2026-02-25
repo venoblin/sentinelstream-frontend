@@ -37,7 +37,7 @@ const App = () => {
   return (
     <>
       <BorderLayout>
-        <BorderItem position="north">
+        <BorderItem position="north" padding={3}>
           <Logo />
         </BorderItem>
 
