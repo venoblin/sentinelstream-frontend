@@ -2,9 +2,9 @@ import { createContext } from 'react'
 
 const AuthContext = createContext({})
 
-const methods = {}
-
 const AuthProvider = (props: React.PropsWithChildren) => {
+  const methods = {}
+
   return (
     <AuthContext.Provider value={methods}>
       {props.children}
