@@ -17,7 +17,7 @@ const App = () => {
       title: 'Dashboard'
     },
     {
-      href: 'Customers',
+      href: '/customers',
       title: 'Customers'
     },
     {
