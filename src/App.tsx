@@ -11,7 +11,7 @@ import Logo from './components/Logo'
 const App = () => {
   const location = useLocation()
 
-  const navData = [
+  const routes = [
     {
       href: '/',
       title: 'Dashboard'
@@ -47,7 +47,7 @@ const App = () => {
             gap="var(--salt-spacing-fixed-100)"
             style={{ listStyle: 'none' }}
           >
-            {navData.map((item) => (
+            {routes.map((item) => (
               <li key={item.href}>
                 <NavigationItem
                   href={item.href}
