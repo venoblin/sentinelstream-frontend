@@ -70,7 +70,7 @@ const App = () => {
         )}
 
         <BorderItem position="center">
-          <StackLayout>
+          <StackLayout style={{ maxWidth: '1200px', margin: 'auto auto' }}>
             <Routes>
               {authContext?.isAuthenticated ? (
                 <>
