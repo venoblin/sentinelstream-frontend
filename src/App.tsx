@@ -1,13 +1,14 @@
 import './App.css'
 import Logo from './components/Logo'
 import type { RouteType } from './types'
-import { Link, Routes, Route, useLocation } from 'react-router'
-import { useContext } from 'react'
+import { Link, Routes, Route, useLocation, useNavigate } from 'react-router'
+import { useContext, useEffect } from 'react'
 import {
   BorderItem,
   BorderLayout,
   StackLayout,
-  NavigationItem
+  NavigationItem,
+  FlexLayout
 } from '@salt-ds/core'
 import { AuthContext } from './contexts/AuthContext'
 import LoginRoute from './routes/LoginRoute'
@@ -16,6 +17,7 @@ import RegisterRoute from './routes/RegisterRoute'
 const App = () => {
   const authContext = useContext(AuthContext)
   const location = useLocation()
+  const navigate = useNavigate()
 
   const routes: RouteType[] = [
     {
@@ -40,11 +42,43 @@ const App = () => {
     }
   ]
 
+  useEffect(() => {
+    if (
+      (!authContext?.isAuthenticated && location.pathname !== '/login') ||
+      location.pathname !== '/register'
+    ) {
+      navigate('/login')
+    }
+  }, [])
+
   return (
     <>
       <BorderLayout>
         <BorderItem position="north" padding={3}>
-          <Logo />
+          <FlexLayout justify="space-between">
+            <Logo />
+
+            {!authContext?.isAuthenticated &&
+            location.pathname === '/register' ? (
+              <NavigationItem
+                href="/login"
+                orientation="horizontal"
+                render={<Link to="/login" />}
+                active={true}
+              >
+                Login
+              </NavigationItem>
+            ) : (
+              <NavigationItem
+                href="/register"
+                orientation="horizontal"
+                render={<Link to="/register" />}
+                active={true}
+              >
+                Register
+              </NavigationItem>
+            )}
+          </FlexLayout>
         </BorderItem>
 
         {authContext?.isAuthenticated && (
