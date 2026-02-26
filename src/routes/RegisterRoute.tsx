@@ -24,7 +24,8 @@ const RegisterRoute = () => {
   const [city, onCityChange] = useFormState('')
   const [email, onEmailChange] = useFormState('')
   const [password, onPasswordChange] = useFormState('')
-  const [country, onCountryChange, setCountryChange] = useFormState('')
+  const [country, onCountryChange, setCountryChange] =
+    useFormState('United States')
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -117,7 +118,7 @@ const RegisterRoute = () => {
             <FormField>
               <FormFieldLabel>Country</FormFieldLabel>
               <Dropdown
-                selected={country ? [country] : ['United States']}
+                selected={country ? [country] : []}
                 onSelectionChange={(event, selection) =>
                   setCountryChange(selection[0] ?? '')
                 }
