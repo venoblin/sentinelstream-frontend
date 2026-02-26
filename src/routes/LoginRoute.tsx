@@ -4,6 +4,7 @@ import CenteredLayout from '../components/CenteredLayout'
 import Form from '../components/Form'
 import { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
+import Loading from '../components/Loading'
 
 const LoginRoute = () => {
   const authContext = useContext(AuthContext)
@@ -20,13 +21,15 @@ const LoginRoute = () => {
       })
 
       console.log(user)
-    } catch (e) {
-      console.error(e)
+    } catch {
+      console.error('Error')
     }
   }
 
   return (
     <>
+      <Loading />
+
       <CenteredLayout>
         <h1>Login</h1>
 

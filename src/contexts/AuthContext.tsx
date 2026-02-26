@@ -11,7 +11,7 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
   const loginUser = async (payload: UserLoginType) => {
     const res = await login(payload)
 
-    return res
+    return res.data
   }
 
   return (
