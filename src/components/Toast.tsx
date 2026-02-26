@@ -20,7 +20,13 @@ const Toast = (props: {
   return (
     <SaltToast
       status={props.status}
-      style={{ width: 260, margin: 'auto auto' }}
+      style={{
+        width: 260,
+        margin: 'auto auto',
+        position: 'absolute',
+        left: '50%',
+        transform: 'translateX(-50%)'
+      }}
     >
       <ToastContent>
         <Text>
