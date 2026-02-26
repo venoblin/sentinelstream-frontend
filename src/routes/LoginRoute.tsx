@@ -1,24 +1,29 @@
 import { Button, FormField, FormFieldLabel, Input } from '@salt-ds/core'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
+import { load } from '../utils'
 import useFormState from '../hooks/useFormState'
 import CenteredLayout from '../components/CenteredLayout'
 import Form from '../components/Form'
-import { useContext } from 'react'
-import { AuthContext } from '../contexts/AuthContext'
 import Loading from '../components/Loading'
 
 const LoginRoute = () => {
   const authContext = useContext(AuthContext)
   const [email, onEmailChange] = useFormState('')
   const [password, onPasswordChange] = useFormState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const onLogin = async (event: React.SubmitEvent) => {
     event.preventDefault()
 
     try {
-      const user = await authContext?.loginUser({
-        email: email,
-        password: password
-      })
+      const user = await load(
+        authContext?.loginUser({
+          email: email,
+          password: password
+        }),
+        setIsLoading
+      )
 
       console.log(user)
     } catch {
@@ -26,10 +31,12 @@ const LoginRoute = () => {
     }
   }
 
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
     <>
-      <Loading />
-
       <CenteredLayout>
         <h1>Login</h1>
 
