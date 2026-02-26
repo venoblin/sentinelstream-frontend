@@ -1,14 +1,13 @@
-import type { FormStateType } from '../types/hooks'
 import { useState } from 'react'
 
-const useFormState = (obj: FormStateType) => {
-  const [state, setState] = useState(obj.init)
+const useFormState = (init: string | number) => {
+  const [state, setState] = useState(init)
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState(event.target.value)
   }
 
-  return [state, onChange, setState]
+  return [state, onChange, setState] as const
 }
 
 export default useFormState

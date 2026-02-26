@@ -1,54 +1,46 @@
-import {
-  Dropdown,
-  FlexLayout,
-  FormField,
-  FormFieldLabel,
-  Input,
-  Option
-} from '@salt-ds/core'
-import { countries } from 'countries-list'
+import { FormField, FormFieldLabel, Input, StackLayout } from '@salt-ds/core'
+import useFormState from '../hooks/useFormState'
+import CenteredLayout from '../components/CenteredLayout'
+import Form from '../components/Form'
 
 const LoginRoute = () => {
+  const [email, onEmailChange] = useFormState('')
+  const [password, onPasswordChange] = useFormState('')
+
+  const onLogin = async (event: React.SubmitEvent) => {
+    event.preventDefault()
+  }
+
   return (
     <>
-      <h1>Login</h1>
+      <CenteredLayout>
+        <h1>Login</h1>
 
-      <FlexLayout>
-        <FormField>
-          <FormFieldLabel>First Name</FormFieldLabel>
-          <Input />
-        </FormField>
-
-        <FormField>
-          <FormFieldLabel>Last Name</FormFieldLabel>
-          <Input />
-        </FormField>
-      </FlexLayout>
-
-      <FlexLayout>
-        <FormField>
-          <FormFieldLabel>City</FormFieldLabel>
-          <Input />
-        </FormField>
-
-        <FormField>
-          <FormFieldLabel>Country</FormFieldLabel>
-          <Dropdown>
-            {Object.values(countries).map((c) => (
-              <Option value={c.name} key={c.name} />
-            ))}
-          </Dropdown>
-        </FormField>
-      </FlexLayout>
-
-      <FormField>
-        <FormFieldLabel>Email</FormFieldLabel>
-        <Input />
-      </FormField>
-      <FormField>
-        <FormFieldLabel>Password</FormFieldLabel>
-        <Input />
-      </FormField>
+        <Form onSubmit={onLogin}>
+          <FormField>
+            <FormFieldLabel>Email</FormFieldLabel>
+            <Input
+              inputProps={{
+                id: 'email',
+                name: 'email',
+                value: email,
+                onChange: onEmailChange
+              }}
+            />
+          </FormField>
+          <FormField>
+            <FormFieldLabel>Password</FormFieldLabel>
+            <Input
+              inputProps={{
+                id: 'password',
+                name: 'password',
+                value: password,
+                onChange: onPasswordChange
+              }}
+            />
+          </FormField>
+        </Form>
+      </CenteredLayout>
     </>
   )
 }
