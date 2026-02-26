@@ -10,18 +10,18 @@ const LoginRoute = () => {
   const [email, onEmailChange] = useFormState('')
   const [password, onPasswordChange] = useFormState('')
 
-  const onLogin = (event: React.SubmitEvent) => {
+  const onLogin = async (event: React.SubmitEvent) => {
     event.preventDefault()
 
     try {
-      const user = authContext?.loginUser({
+      const user = await authContext?.loginUser({
         email: email,
         password: password
       })
 
       console.log(user)
-    } catch {
-      console.error('Error')
+    } catch (e) {
+      console.error(e)
     }
   }
 
