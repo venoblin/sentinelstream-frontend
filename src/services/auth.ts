@@ -12,3 +12,9 @@ export const register = async (payload: UserPayloadType) => {
 
   return res
 }
+
+export const session = async () => {
+  const res = await Client.get('/auth/session')
+
+  return res
+}

@@ -1,7 +1,7 @@
 import type { AuthContextType } from '../types/auth'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import type { UserLoginType, UserPayloadType } from '../types/user'
-import { login, register } from '../services/auth'
+import { login, register, session } from '../services/auth'
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
@@ -19,6 +19,16 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
 
     return res.data
   }
+
+  const checkSession = async () => {
+    const res = await session()
+
+    console.log(res.data)
+  }
+
+  useEffect(() => {
+    checkSession()
+  }, [])
 
   return (
     <AuthContext.Provider
