@@ -42,7 +42,7 @@ const RegisterRoute = () => {
     setIsError(false)
 
     try {
-      const user = await load(
+      await load(
         authContext?.registerUser({
           email: email,
           password: password,
@@ -55,8 +55,6 @@ const RegisterRoute = () => {
       )
 
       resetForm()
-
-      console.log(user)
     } catch {
       setIsError(true)
     }

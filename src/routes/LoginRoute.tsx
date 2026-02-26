@@ -26,7 +26,7 @@ const LoginRoute = () => {
     try {
       setIsError(false)
 
-      const user = await load(
+      await load(
         authContext?.loginUser({
           email: email,
           password: password
@@ -35,8 +35,6 @@ const LoginRoute = () => {
       )
 
       resetForm()
-
-      console.log(user)
     } catch {
       resetForm()
       setIsError(true)
