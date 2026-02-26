@@ -43,12 +43,8 @@ const App = () => {
   ]
 
   useEffect(() => {
-    if (
-      (!authContext?.isAuthenticated && location.pathname !== '/login') ||
-      location.pathname !== '/register'
-    ) {
+    if (!authContext?.isAuthenticated && location.pathname !== '/register')
       navigate('/login')
-    }
   }, [])
 
   return (

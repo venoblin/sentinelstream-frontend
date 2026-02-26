@@ -1,10 +1,4 @@
-export interface UserLoginType {
-  email: string
-  password: string
-}
-
-export interface UserPayloadType {
-  id: number
+interface UserBaseType {
   email: string
   firstName: string
   lastName: string
@@ -12,7 +6,17 @@ export interface UserPayloadType {
   locationCountry: string
 }
 
-export interface UserType extends UserPayloadType {
+export interface UserLoginType {
+  email: string
+  password: string
+}
+
+export interface UserPayloadType extends UserBaseType {
+  password: string
+}
+
+export interface UserType extends UserBaseType {
+  id: number
   riskScore: number
   role: 'user' | 'analyst'
   isActive: boolean

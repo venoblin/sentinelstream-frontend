@@ -19,6 +19,8 @@ const LoginRoute = () => {
     event.preventDefault()
 
     try {
+      setIsError(false)
+
       const user = await load(
         authContext?.loginUser({
           email: email,

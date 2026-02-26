@@ -11,21 +11,60 @@ import { countries } from 'countries-list'
 import useFormState from '../hooks/useFormState'
 import Form from '../components/Form'
 import CenteredLayout from '../components/CenteredLayout'
+import { useContext, useState } from 'react'
+import { load } from '../utils'
+import { AuthContext } from '../contexts/AuthContext'
+import Loading from '../components/Loading'
+import Toast from '../components/Toast'
 
 const RegisterRoute = () => {
+  const authContext = useContext(AuthContext)
   const [firstName, onFirstNameChange] = useFormState('')
   const [lastName, onLastNameChange] = useFormState('')
   const [city, onCityChange] = useFormState('')
   const [email, onEmailChange] = useFormState('')
   const [password, onPasswordChange] = useFormState('')
   const [country, onCountryChange, setCountryChange] = useFormState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   const onRegister = async (event: React.SubmitEvent) => {
     event.preventDefault()
+    setIsError(false)
+
+    try {
+      const user = await load(
+        authContext?.registerUser({
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          locationCity: city,
+          locationCountry: country
+        }),
+        setIsLoading
+      )
+
+      console.log(user)
+    } catch {
+      setIsError(true)
+    }
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
     <>
+      {isError && (
+        <Toast
+          status="error"
+          text="Couldn't register"
+          subText="Email already in use"
+        />
+      )}
+
       <CenteredLayout>
         <h1>Register</h1>
 
