@@ -5,7 +5,7 @@ import {
   FormFieldLabel,
   Input,
   Option,
-  StackLayout
+  Button
 } from '@salt-ds/core'
 import { countries } from 'countries-list'
 import useFormState from '../hooks/useFormState'
@@ -35,10 +35,12 @@ const RegisterRoute = () => {
               <FormFieldLabel>First Name</FormFieldLabel>
               <Input
                 inputProps={{
+                  type: 'text',
                   id: 'firstName',
                   name: 'firstName',
                   value: firstName,
-                  onChange: onFirstNameChange
+                  onChange: onFirstNameChange,
+                  required: true
                 }}
               />
             </FormField>
@@ -47,10 +49,12 @@ const RegisterRoute = () => {
               <FormFieldLabel>Last Name</FormFieldLabel>
               <Input
                 inputProps={{
+                  type: 'text',
                   id: 'lastName',
                   name: 'lastName',
                   value: lastName,
-                  onChange: onLastNameChange
+                  onChange: onLastNameChange,
+                  required: true
                 }}
               />
             </FormField>
@@ -61,10 +65,12 @@ const RegisterRoute = () => {
               <FormFieldLabel>City</FormFieldLabel>
               <Input
                 inputProps={{
+                  type: 'text',
                   id: 'city',
                   name: 'city',
                   value: city,
-                  onChange: onCityChange
+                  onChange: onCityChange,
+                  required: true
                 }}
               />
             </FormField>
@@ -72,10 +78,11 @@ const RegisterRoute = () => {
             <FormField>
               <FormFieldLabel>Country</FormFieldLabel>
               <Dropdown
-                selected={country ? [country] : []}
+                selected={country ? [country] : ['United States']}
                 onSelectionChange={(event, selection) =>
                   setCountryChange(selection[0] ?? '')
                 }
+                required={true}
               >
                 {Object.values(countries).map((c) => (
                   <Option value={c.name} key={c.name} />
@@ -88,10 +95,12 @@ const RegisterRoute = () => {
             <FormFieldLabel>Email</FormFieldLabel>
             <Input
               inputProps={{
+                type: 'email',
                 id: 'email',
                 name: 'email',
                 value: email,
-                onChange: onEmailChange
+                onChange: onEmailChange,
+                required: true
               }}
             />
           </FormField>
@@ -99,13 +108,19 @@ const RegisterRoute = () => {
             <FormFieldLabel>Password</FormFieldLabel>
             <Input
               inputProps={{
+                type: 'password',
                 id: 'password',
                 name: 'password',
                 value: password,
-                onChange: onPasswordChange
+                onChange: onPasswordChange,
+                required: true
               }}
             />
           </FormField>
+
+          <Button type="submit" sentiment="accented" appearance="solid">
+            Register
+          </Button>
         </Form>
       </CenteredLayout>
     </>

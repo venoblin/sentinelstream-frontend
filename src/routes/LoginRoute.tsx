@@ -1,4 +1,4 @@
-import { FormField, FormFieldLabel, Input, StackLayout } from '@salt-ds/core'
+import { Button, FormField, FormFieldLabel, Input } from '@salt-ds/core'
 import useFormState from '../hooks/useFormState'
 import CenteredLayout from '../components/CenteredLayout'
 import Form from '../components/Form'
@@ -9,6 +9,7 @@ const LoginRoute = () => {
 
   const onLogin = async (event: React.SubmitEvent) => {
     event.preventDefault()
+    console.log('hi')
   }
 
   return (
@@ -21,10 +22,12 @@ const LoginRoute = () => {
             <FormFieldLabel>Email</FormFieldLabel>
             <Input
               inputProps={{
+                type: 'email',
                 id: 'email',
                 name: 'email',
                 value: email,
-                onChange: onEmailChange
+                onChange: onEmailChange,
+                required: true
               }}
             />
           </FormField>
@@ -32,13 +35,19 @@ const LoginRoute = () => {
             <FormFieldLabel>Password</FormFieldLabel>
             <Input
               inputProps={{
+                type: 'password',
                 id: 'password',
                 name: 'password',
                 value: password,
-                onChange: onPasswordChange
+                onChange: onPasswordChange,
+                required: true
               }}
             />
           </FormField>
+
+          <Button type="submit" sentiment="accented" appearance="solid">
+            Login
+          </Button>
         </Form>
       </CenteredLayout>
     </>

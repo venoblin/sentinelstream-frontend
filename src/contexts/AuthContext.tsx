@@ -6,13 +6,12 @@ export const AuthContext = createContext<AuthContextType | null>(null)
 export const AuthProvider = (props: React.PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const methods = {
-    isAuthenticated,
-    setIsAuthenticated
-  }
+  const loginUser = async () => {}
 
   return (
-    <AuthContext.Provider value={methods}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, loginUser }}
+    >
       {props.children}
     </AuthContext.Provider>
   )
