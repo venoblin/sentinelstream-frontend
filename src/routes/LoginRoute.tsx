@@ -6,12 +6,14 @@ import useFormState from '../hooks/useFormState'
 import CenteredLayout from '../components/CenteredLayout'
 import Form from '../components/Form'
 import Loading from '../components/Loading'
+import Toast from '../components/Toast'
 
 const LoginRoute = () => {
   const authContext = useContext(AuthContext)
   const [email, onEmailChange] = useFormState('')
   const [password, onPasswordChange] = useFormState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   const onLogin = async (event: React.SubmitEvent) => {
     event.preventDefault()
@@ -27,7 +29,7 @@ const LoginRoute = () => {
 
       console.log(user)
     } catch {
-      console.error('Error')
+      setIsError(true)
     }
   }
 
@@ -37,6 +39,14 @@ const LoginRoute = () => {
 
   return (
     <>
+      {isError && (
+        <Toast
+          status="error"
+          text="Couldn't log in"
+          subText="Email or password is incorrect"
+        />
+      )}
+
       <CenteredLayout>
         <h1>Login</h1>
 
