@@ -19,15 +19,23 @@ import Toast from '../components/Toast'
 
 const RegisterRoute = () => {
   const authContext = useContext(AuthContext)
-  const [firstName, onFirstNameChange] = useFormState('')
-  const [lastName, onLastNameChange] = useFormState('')
-  const [city, onCityChange] = useFormState('')
-  const [email, onEmailChange] = useFormState('')
-  const [password, onPasswordChange] = useFormState('')
-  const [country, onCountryChange, setCountryChange] =
-    useFormState('United States')
+  const [firstName, setFirstName, onFirstNameChange] = useFormState('')
+  const [lastName, setLastName, onLastNameChange] = useFormState('')
+  const [city, setCity, onCityChange] = useFormState('')
+  const [email, setEmail, onEmailChange] = useFormState('')
+  const [password, setPassword, onPasswordChange] = useFormState('')
+  const [country, setCountry] = useFormState('United States')
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+
+  const resetForm = () => {
+    setFirstName('')
+    setLastName('')
+    setCity('')
+    setEmail('')
+    setPassword('')
+    setCountry('United States')
+  }
 
   const onRegister = async (event: React.SubmitEvent) => {
     event.preventDefault()
@@ -45,6 +53,8 @@ const RegisterRoute = () => {
         }),
         setIsLoading
       )
+
+      resetForm()
 
       console.log(user)
     } catch {
@@ -74,12 +84,12 @@ const RegisterRoute = () => {
             <FormField>
               <FormFieldLabel>First Name</FormFieldLabel>
               <Input
+                value={firstName}
+                onChange={onFirstNameChange}
                 inputProps={{
                   type: 'text',
                   id: 'firstName',
                   name: 'firstName',
-                  value: firstName,
-                  onChange: onFirstNameChange,
                   required: true
                 }}
               />
@@ -88,12 +98,12 @@ const RegisterRoute = () => {
             <FormField>
               <FormFieldLabel>Last Name</FormFieldLabel>
               <Input
+                value={lastName}
+                onChange={onLastNameChange}
                 inputProps={{
                   type: 'text',
                   id: 'lastName',
                   name: 'lastName',
-                  value: lastName,
-                  onChange: onLastNameChange,
                   required: true
                 }}
               />
@@ -104,12 +114,12 @@ const RegisterRoute = () => {
             <FormField>
               <FormFieldLabel>City</FormFieldLabel>
               <Input
+                value={city}
+                onChange={onCityChange}
                 inputProps={{
                   type: 'text',
                   id: 'city',
                   name: 'city',
-                  value: city,
-                  onChange: onCityChange,
                   required: true
                 }}
               />
@@ -120,7 +130,7 @@ const RegisterRoute = () => {
               <Dropdown
                 selected={country ? [country] : []}
                 onSelectionChange={(event, selection) =>
-                  setCountryChange(selection[0] ?? '')
+                  setCountry(selection[0] ?? '')
                 }
                 required={true}
               >
@@ -134,12 +144,12 @@ const RegisterRoute = () => {
           <FormField>
             <FormFieldLabel>Email</FormFieldLabel>
             <Input
+              value={email}
+              onChange={onEmailChange}
               inputProps={{
                 type: 'email',
                 id: 'email',
                 name: 'email',
-                value: email,
-                onChange: onEmailChange,
                 required: true
               }}
             />
@@ -147,12 +157,12 @@ const RegisterRoute = () => {
           <FormField>
             <FormFieldLabel>Password</FormFieldLabel>
             <Input
+              value={password}
+              onChange={onPasswordChange}
               inputProps={{
                 type: 'password',
                 id: 'password',
                 name: 'password',
-                value: password,
-                onChange: onPasswordChange,
                 required: true
               }}
             />

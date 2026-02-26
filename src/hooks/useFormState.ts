@@ -7,7 +7,7 @@ const useFormState = (init: string) => {
     setState(event.target.value)
   }
 
-  return [state, onChange, setState] as const
+  return [state, setState, onChange] as const
 }
 
 export default useFormState

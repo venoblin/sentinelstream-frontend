@@ -10,10 +10,15 @@ import Toast from '../components/Toast'
 
 const LoginRoute = () => {
   const authContext = useContext(AuthContext)
-  const [email, onEmailChange] = useFormState('')
-  const [password, onPasswordChange] = useFormState('')
+  const [email, setEmail, onEmailChange] = useFormState('')
+  const [password, setPassword, onPasswordChange] = useFormState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+
+  const resetForm = () => {
+    setEmail('')
+    setPassword('')
+  }
 
   const onLogin = async (event: React.SubmitEvent) => {
     event.preventDefault()
@@ -29,8 +34,11 @@ const LoginRoute = () => {
         setIsLoading
       )
 
+      resetForm()
+
       console.log(user)
     } catch {
+      resetForm()
       setIsError(true)
     }
   }
@@ -56,12 +64,12 @@ const LoginRoute = () => {
           <FormField>
             <FormFieldLabel>Email</FormFieldLabel>
             <Input
+              value={email}
+              onChange={onEmailChange}
               inputProps={{
                 type: 'email',
                 id: 'email',
                 name: 'email',
-                value: email,
-                onChange: onEmailChange,
                 required: true
               }}
             />
@@ -69,12 +77,12 @@ const LoginRoute = () => {
           <FormField>
             <FormFieldLabel>Password</FormFieldLabel>
             <Input
+              value={password}
+              onChange={onPasswordChange}
               inputProps={{
                 type: 'password',
                 id: 'password',
                 name: 'password',
-                value: password,
-                onChange: onPasswordChange,
                 required: true
               }}
             />
