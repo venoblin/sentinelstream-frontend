@@ -1,5 +1,7 @@
+import type { UserLoginType } from './user'
+
 export interface AuthContextType {
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  loginUser: () => void
+  loginUser: (payload: UserLoginType) => void
 }

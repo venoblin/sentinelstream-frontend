@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <>
-      <BorderLayout>
+      <BorderLayout style={{ maxWidth: '1400px', margin: 'auto auto' }}>
         <BorderItem position="north" padding={3}>
           <FlexLayout justify="space-between">
             <Logo />

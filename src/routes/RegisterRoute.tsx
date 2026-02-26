@@ -118,7 +118,12 @@ const RegisterRoute = () => {
             />
           </FormField>
 
-          <Button type="submit" sentiment="accented" appearance="solid">
+          <Button
+            type="submit"
+            sentiment="accented"
+            appearance="solid"
+            style={{ width: 'fit-content' }}
+          >
             Register
           </Button>
         </Form>

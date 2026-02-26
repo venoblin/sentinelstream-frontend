@@ -2,14 +2,27 @@ import { Button, FormField, FormFieldLabel, Input } from '@salt-ds/core'
 import useFormState from '../hooks/useFormState'
 import CenteredLayout from '../components/CenteredLayout'
 import Form from '../components/Form'
+import { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
 
 const LoginRoute = () => {
+  const authContext = useContext(AuthContext)
   const [email, onEmailChange] = useFormState('')
   const [password, onPasswordChange] = useFormState('')
 
-  const onLogin = async (event: React.SubmitEvent) => {
+  const onLogin = (event: React.SubmitEvent) => {
     event.preventDefault()
-    console.log('hi')
+
+    try {
+      const user = authContext?.loginUser({
+        email: email,
+        password: password
+      })
+
+      console.log(user)
+    } catch {
+      console.error('Error')
+    }
   }
 
   return (
@@ -45,7 +58,12 @@ const LoginRoute = () => {
             />
           </FormField>
 
-          <Button type="submit" sentiment="accented" appearance="solid">
+          <Button
+            type="submit"
+            sentiment="accented"
+            appearance="solid"
+            style={{ width: 'fit-content' }}
+          >
             Login
           </Button>
         </Form>
