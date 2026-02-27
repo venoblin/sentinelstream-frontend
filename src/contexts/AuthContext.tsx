@@ -33,17 +33,21 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
     return res.data
   }
 
+  const setAuthentication = (authenticated: boolean, user: UserType | null) => {
+    setIsAuthenticated(authenticated)
+    setUser(user)
+  }
+
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        setIsAuthenticated,
         loginUser,
         registerUser,
         getSession,
         logoutUser,
         user,
-        setUser
+        setAuthentication
       }}
     >
       {props.children}

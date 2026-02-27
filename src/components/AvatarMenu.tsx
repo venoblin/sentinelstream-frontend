@@ -28,8 +28,7 @@ const AvatarMenu = () => {
       const res = await load(authContext?.logoutUser(), setIsLoading)
 
       if (res) {
-        authContext?.setIsAuthenticated(false)
-        authContext?.setUser(null)
+        authContext?.setAuthentication(false, null)
       }
     } catch {
       setIsError(true)

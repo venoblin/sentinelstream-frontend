@@ -37,8 +37,7 @@ const LoginRoute = () => {
       )
 
       if (res) {
-        authContext?.setUser(res.user)
-        authContext?.setIsAuthenticated(true)
+        authContext?.setAuthentication(true, res.user)
       }
 
       resetForm()
