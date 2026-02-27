@@ -1,5 +1,11 @@
-.loader {
+.Loading {
   margin: auto auto;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 2rem;
+}
+
+.loader {
   width: 48px;
   height: 48px;
   border-radius: 50%;
