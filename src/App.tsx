@@ -22,6 +22,7 @@ import DevicesRoute from './routes/DevicesRoute'
 import LogsRoute from './routes/LogsRoute'
 import TransactionsRoute from './routes/TransactionsRoute'
 import ProfileRoute from './routes/ProfileRoute'
+import FraudRulesRoute from './routes/FraudRulesRoute'
 
 const App = () => {
   const authContext = useContext(AuthContext)
@@ -50,6 +51,11 @@ const App = () => {
       href: '/devices',
       title: 'Devices',
       RouteComponent: DevicesRoute
+    },
+    {
+      href: '/fraud-rules',
+      title: 'Fraud Rules',
+      RouteComponent: FraudRulesRoute
     },
     {
       href: '/logs',
