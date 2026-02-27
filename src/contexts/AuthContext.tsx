@@ -1,7 +1,7 @@
 import type { AuthContextType } from '../types/auth'
 import { createContext, useState } from 'react'
 import type { UserLoginType, UserPayloadType, UserType } from '../types/user'
-import { login, register, session } from '../services/auth'
+import { login, logout, register, session } from '../services/auth'
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
@@ -27,6 +27,12 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
     return res.data
   }
 
+  const logoutUser = async () => {
+    const res = await logout()
+
+    return res.data
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -35,6 +41,7 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
         loginUser,
         registerUser,
         getSession,
+        logoutUser,
         user,
         setUser
       }}

@@ -18,3 +18,9 @@ export const session = async () => {
 
   return res
 }
+
+export const logout = async () => {
+  const res = await Client.post('/auth/logout')
+
+  return res
+}

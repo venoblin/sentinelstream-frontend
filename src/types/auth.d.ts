@@ -6,6 +6,7 @@ export interface AuthContextType {
   loginUser: (payload: UserLoginType) => Promise<any>
   registerUser: (payload: UserPayloadType) => Promise<any>
   getSession: () => Promise<any>
+  logoutUser: () => Promise<any>
   user: UserType | null
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>
 }

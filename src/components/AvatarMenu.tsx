@@ -9,18 +9,47 @@ import {
   useId,
   OverlayTrigger,
   StackLayout,
-  Button,
-  NavigationItem
+  Button
 } from '@salt-ds/core'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
+import Toast from './Toast'
+import { load } from '../utils'
+import Loading from './Loading'
 
 const AvatarMenu = () => {
   const authContext = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
   const id = useId()
+
+  const handleLogout = async () => {
+    try {
+      const res = await load(authContext?.logoutUser(), setIsLoading)
+
+      if (res) {
+        authContext?.setIsAuthenticated(false)
+        authContext?.setUser(null)
+      }
+    } catch {
+      setIsError(true)
+    }
+  }
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <Overlay>
+      {isError && (
+        <Toast
+          status="error"
+          text="Couldn't log out"
+          subText="Please try again later"
+        />
+      )}
+
       <Tooltip content={'Account'}>
         <OverlayTrigger>
           <Avatar
@@ -36,7 +65,11 @@ const AvatarMenu = () => {
           <StackLayout style={{ textAlign: 'center', padding: '1rem' }}>
             <Link to="/profile">Profile</Link>
 
-            <Button sentiment="accented" appearance="bordered">
+            <Button
+              sentiment="accented"
+              appearance="bordered"
+              onClick={handleLogout}
+            >
               Logout
             </Button>
           </StackLayout>

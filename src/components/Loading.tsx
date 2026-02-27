@@ -1,4 +1,3 @@
-import './Loading.css'
 import { Spinner } from '@salt-ds/core'
 
 const Loading = () => {
