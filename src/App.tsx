@@ -11,10 +11,17 @@ import {
   FlexLayout
 } from '@salt-ds/core'
 import { AuthContext } from './contexts/AuthContext'
-import LoginRoute from './routes/LoginRoute'
-import RegisterRoute from './routes/RegisterRoute'
 import Loading from './components/Loading'
 import AvatarMenu from './components/AvatarMenu'
+import RegisterRoute from './routes/RegisterRoute'
+import LoginRoute from './routes/LoginRoute'
+import AnalystsRoute from './routes/AnalystsRoute'
+import CustomersRoute from './routes/CustomersRoute'
+import DashboardRoute from './routes/DashboardRoute'
+import DevicesRoute from './routes/DevicesRoute'
+import LogsRoute from './routes/LogsRoute'
+import TransactionsRoute from './routes/TransactionsRoute'
+import ProfileRoute from './routes/ProfileRoute'
 
 const App = () => {
   const authContext = useContext(AuthContext)
@@ -25,23 +32,29 @@ const App = () => {
   const routes: RouteType[] = [
     {
       href: '/',
-      title: 'Dashboard'
+      title: 'Dashboard',
+      RouteComponent: DashboardRoute
     },
+    { href: '/analysts', title: 'Analysts', RouteComponent: AnalystsRoute },
     {
       href: '/customers',
-      title: 'Customers'
+      title: 'Customers',
+      RouteComponent: CustomersRoute
     },
     {
       href: '/transactions',
-      title: 'Transactions'
+      title: 'Transactions',
+      RouteComponent: TransactionsRoute
     },
     {
       href: '/devices',
-      title: 'Devices'
+      title: 'Devices',
+      RouteComponent: DevicesRoute
     },
     {
       href: '/logs',
-      title: 'Logs'
+      title: 'Logs',
+      RouteComponent: LogsRoute
     }
   ]
 
@@ -50,11 +63,10 @@ const App = () => {
       const res = await authContext?.getSession()
 
       if (res) {
-        authContext?.setUser(res.user)
-        authContext?.setIsAuthenticated(true)
+        authContext?.setAuthentication(true, res.user)
       }
     } catch {
-      authContext?.setIsAuthenticated(false)
+      authContext?.setAuthentication(false, null)
     } finally {
       setIsInitializing(false)
     }
@@ -118,15 +130,15 @@ const App = () => {
               gap="var(--salt-spacing-fixed-100)"
               style={{ listStyle: 'none' }}
             >
-              {routes.map((item) => (
-                <li key={item.href}>
+              {routes.map((r) => (
+                <li key={r.href}>
                   <NavigationItem
-                    href={item.href}
+                    href={r.href}
                     orientation="vertical"
-                    render={<Link to={item.href} />}
-                    active={location.pathname === item.href}
+                    render={<Link to={r.href} />}
+                    active={location.pathname === r.href}
                   >
-                    {item.title}
+                    {r.title}
                   </NavigationItem>
                 </li>
               ))}
@@ -139,7 +151,10 @@ const App = () => {
             <Routes>
               {authContext?.isAuthenticated ? (
                 <>
-                  <Route />
+                  {routes.map((r) => (
+                    <Route path={r.href} element={<r.RouteComponent />} />
+                  ))}
+                  <Route path="/profile" element={<ProfileRoute />} />
                 </>
               ) : (
                 <>
