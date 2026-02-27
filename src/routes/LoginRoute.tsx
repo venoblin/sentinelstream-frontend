@@ -7,13 +7,15 @@ import CenteredLayout from '../components/CenteredLayout'
 import Form from '../components/Form'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
+import { useNavigate } from 'react-router'
 
 const LoginRoute = () => {
   const authContext = useContext(AuthContext)
   const [email, setEmail, onEmailChange] = useFormState('')
   const [password, setPassword, onPasswordChange] = useFormState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const resetForm = () => {
     setEmail('')
@@ -26,7 +28,7 @@ const LoginRoute = () => {
     try {
       setIsError(false)
 
-      await load(
+      const res = await load(
         authContext?.loginUser({
           email: email,
           password: password
@@ -34,7 +36,13 @@ const LoginRoute = () => {
         setIsLoading
       )
 
+      if (res) {
+        authContext?.setUser(res.user)
+        authContext?.setIsAuthenticated(true)
+      }
+
       resetForm()
+      navigate('/')
     } catch {
       resetForm()
       setIsError(true)

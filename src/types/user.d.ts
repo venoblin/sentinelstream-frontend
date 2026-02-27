@@ -22,4 +22,8 @@ export interface UserType extends UserBaseType {
   isActive: boolean
   createdAt: string
   updatedAt: string
+  transactions: []
+  devices: []
+  createdFraudRules: []
+  auditLogs: []
 }

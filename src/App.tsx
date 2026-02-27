@@ -2,7 +2,7 @@ import './App.css'
 import Logo from './components/Logo'
 import type { RouteType } from './types'
 import { Link, Routes, Route, useLocation, useNavigate } from 'react-router'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   BorderItem,
   BorderLayout,
@@ -11,11 +11,14 @@ import {
   FlexLayout
 } from '@salt-ds/core'
 import { AuthContext } from './contexts/AuthContext'
+import { load } from './utils'
 import LoginRoute from './routes/LoginRoute'
 import RegisterRoute from './routes/RegisterRoute'
+import Loading from './components/Loading'
 
 const App = () => {
   const authContext = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -42,10 +45,31 @@ const App = () => {
     }
   ]
 
+  const checkSession = async () => {
+    try {
+      const res = await load(authContext?.getSession(), setIsLoading)
+
+      if (res) {
+        authContext?.setUser(res.user)
+        authContext?.setIsAuthenticated(true)
+      }
+    } catch {
+      authContext?.setIsAuthenticated(false)
+    }
+  }
+
+  useEffect(() => {
+    checkSession()
+  }, [])
+
   useEffect(() => {
     if (!authContext?.isAuthenticated && location.pathname !== '/register')
       navigate('/login')
   }, [])
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <>

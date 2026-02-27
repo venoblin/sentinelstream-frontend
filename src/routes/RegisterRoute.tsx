@@ -25,8 +25,8 @@ const RegisterRoute = () => {
   const [email, setEmail, onEmailChange] = useFormState('')
   const [password, setPassword, onPasswordChange] = useFormState('')
   const [country, setCountry] = useFormState('United States')
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
 
   const resetForm = () => {
     setFirstName('')

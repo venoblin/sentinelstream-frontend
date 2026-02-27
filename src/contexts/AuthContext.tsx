@@ -1,15 +1,13 @@
 import type { AuthContextType } from '../types/auth'
-import { createContext, useEffect, useState } from 'react'
-import type { UserLoginType, UserPayloadType } from '../types/user'
+import { createContext, useState } from 'react'
+import type { UserLoginType, UserPayloadType, UserType } from '../types/user'
 import { login, register, session } from '../services/auth'
-import { load } from '../utils'
-import Loading from '../components/Loading'
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = (props: React.PropsWithChildren) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const [user, setUser] = useState<UserType | null>(null)
 
   const loginUser = async (payload: UserLoginType) => {
     const res = await login(payload)
@@ -23,26 +21,23 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
     return res.data
   }
 
-  const checkSession = async () => {
-    try {
-      const res = await load(session(), setIsLoading)
+  const getSession = async () => {
+    const res = await session()
 
-      if (res) {
-      }
-    } catch {}
-  }
-
-  useEffect(() => {
-    checkSession()
-  }, [])
-
-  if (isLoading) {
-    return <Loading />
+    return res.data
   }
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, loginUser, registerUser }}
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        loginUser,
+        registerUser,
+        getSession,
+        user,
+        setUser
+      }}
     >
       {props.children}
     </AuthContext.Provider>
