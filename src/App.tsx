@@ -63,9 +63,12 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (!authContext?.isAuthenticated && location.pathname !== '/register')
+    console.log(authContext?.isAuthenticated)
+
+    if (!authContext?.isAuthenticated && location.pathname !== '/register') {
       navigate('/login')
-  }, [])
+    }
+  }, [authContext?.isAuthenticated])
 
   if (isLoading) {
     return <Loading />
