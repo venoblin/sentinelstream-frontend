@@ -11,14 +11,14 @@ import {
   FlexLayout
 } from '@salt-ds/core'
 import { AuthContext } from './contexts/AuthContext'
-import { load } from './utils'
 import LoginRoute from './routes/LoginRoute'
 import RegisterRoute from './routes/RegisterRoute'
 import Loading from './components/Loading'
+import AvatarMenu from './components/AvatarMenu'
 
 const App = () => {
   const authContext = useContext(AuthContext)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isInitializing, setIsInitializing] = useState<boolean>(true)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -47,7 +47,7 @@ const App = () => {
 
   const checkSession = async () => {
     try {
-      const res = await load(authContext?.getSession(), setIsLoading)
+      const res = await authContext?.getSession()
 
       if (res) {
         authContext?.setUser(res.user)
@@ -55,6 +55,8 @@ const App = () => {
       }
     } catch {
       authContext?.setIsAuthenticated(false)
+    } finally {
+      setIsInitializing(false)
     }
   }
 
@@ -63,14 +65,14 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    console.log(authContext?.isAuthenticated)
-
-    if (!authContext?.isAuthenticated && location.pathname !== '/register') {
-      navigate('/login')
+    if (!isInitializing) {
+      if (!authContext?.isAuthenticated && location.pathname !== '/register') {
+        navigate('/login')
+      }
     }
-  }, [authContext?.isAuthenticated])
+  }, [])
 
-  if (isLoading) {
+  if (isInitializing) {
     return <Loading />
   }
 
@@ -81,25 +83,30 @@ const App = () => {
           <FlexLayout justify="space-between">
             <Logo />
 
-            {!authContext?.isAuthenticated &&
-            location.pathname === '/register' ? (
-              <NavigationItem
-                href="/login"
-                orientation="horizontal"
-                render={<Link to="/login" />}
-                active={true}
-              >
-                Login
-              </NavigationItem>
+            {!authContext?.isAuthenticated ? (
+              location.pathname === '/register' ? (
+                <NavigationItem
+                  href="/login"
+                  orientation="horizontal"
+                  render={<Link to="/login" />}
+                  active={true}
+                >
+                  Login
+                </NavigationItem>
+              ) : (
+                <NavigationItem
+                  href="/register"
+                  orientation="horizontal"
+                  render={<Link to="/register" />}
+                  active={true}
+                >
+                  Register
+                </NavigationItem>
+              )
             ) : (
-              <NavigationItem
-                href="/register"
-                orientation="horizontal"
-                render={<Link to="/register" />}
-                active={true}
-              >
-                Register
-              </NavigationItem>
+              <FlexLayout>
+                <AvatarMenu />
+              </FlexLayout>
             )}
           </FlexLayout>
         </BorderItem>
