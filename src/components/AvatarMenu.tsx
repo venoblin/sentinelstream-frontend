@@ -15,7 +15,6 @@ import { useContext, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import Toast from './Toast'
 import { load } from '../utils'
-import Loading from './Loading'
 
 const AvatarMenu = () => {
   const authContext = useContext(AuthContext)
@@ -29,10 +28,6 @@ const AvatarMenu = () => {
     } catch {
       setIsError(true)
     }
-  }
-
-  if (isLoading) {
-    return <Loading />
   }
 
   return (
@@ -65,7 +60,7 @@ const AvatarMenu = () => {
               appearance="bordered"
               onClick={handleLogout}
             >
-              Logout
+              {isLoading ? 'Logging out...' : 'Logout'}
             </Button>
           </StackLayout>
         </OverlayPanelContent>
