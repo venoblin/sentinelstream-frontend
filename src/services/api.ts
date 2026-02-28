@@ -1,5 +1,7 @@
 import Client from './client'
 
-export const getAllUser = async (options: {}) => {
-  return await Client.get('/api/users', options)
+export const getAllUsers = async (query?: string) => {
+  if (query) return await Client.get(`/api/users?${query}`)
+
+  return await Client.get('/api/users')
 }
