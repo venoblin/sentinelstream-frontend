@@ -16,7 +16,7 @@ export interface UserPayloadType extends UserBaseType {
 }
 
 export interface UserType extends UserBaseType {
-  id: number
+  id: string
   riskScore: number
   role: 'user' | 'analyst'
   isActive: boolean

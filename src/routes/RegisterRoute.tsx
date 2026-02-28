@@ -16,6 +16,7 @@ import { load } from '../utils'
 import { AuthContext } from '../contexts/AuthContext'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
+import { useNavigate } from 'react-router'
 
 const RegisterRoute = () => {
   const authContext = useContext(AuthContext)
@@ -27,6 +28,7 @@ const RegisterRoute = () => {
   const [country, setCountry] = useFormState('United States')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const resetForm = () => {
     setFirstName('')
@@ -55,6 +57,8 @@ const RegisterRoute = () => {
       )
 
       resetForm()
+
+      navigate('/')
     } catch {
       setIsError(true)
     }

@@ -96,7 +96,9 @@ const App = () => {
 
   return (
     <>
-      <BorderLayout style={{ maxWidth: '1400px', margin: 'auto auto' }}>
+      <BorderLayout
+        style={{ maxWidth: '1400px', margin: 'auto auto', padding: '1rem' }}
+      >
         <BorderItem position="north" padding={3}>
           <FlexLayout justify="space-between">
             <Logo />
