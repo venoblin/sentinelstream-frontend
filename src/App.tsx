@@ -23,6 +23,8 @@ import LogsRoute from './routes/LogsRoute'
 import TransactionsRoute from './routes/TransactionsRoute'
 import ProfileRoute from './routes/ProfileRoute'
 import FraudRulesRoute from './routes/FraudRulesRoute'
+import NavigationLink from './components/NavigationLink'
+import NotFoundRoute from './routes/NotFoundRoute'
 
 const App = () => {
   const authContext = useContext(AuthContext)
@@ -34,33 +36,44 @@ const App = () => {
     {
       href: '/',
       title: 'Dashboard',
-      RouteComponent: DashboardRoute
+      RouteComponent: DashboardRoute,
+      isProtected: false
     },
-    { href: '/analysts', title: 'Analysts', RouteComponent: AnalystsRoute },
+    {
+      href: '/analysts',
+      title: 'Analysts',
+      RouteComponent: AnalystsRoute,
+      isProtected: true
+    },
     {
       href: '/customers',
       title: 'Customers',
-      RouteComponent: CustomersRoute
+      RouteComponent: CustomersRoute,
+      isProtected: true
     },
     {
       href: '/transactions',
       title: 'Transactions',
-      RouteComponent: TransactionsRoute
+      RouteComponent: TransactionsRoute,
+      isProtected: false
     },
     {
       href: '/devices',
       title: 'Devices',
-      RouteComponent: DevicesRoute
+      RouteComponent: DevicesRoute,
+      isProtected: false
     },
     {
       href: '/fraud-rules',
       title: 'Fraud Rules',
-      RouteComponent: FraudRulesRoute
+      RouteComponent: FraudRulesRoute,
+      isProtected: true
     },
     {
       href: '/logs',
       title: 'Logs',
-      RouteComponent: LogsRoute
+      RouteComponent: LogsRoute,
+      isProtected: true
     }
   ]
 
@@ -136,18 +149,23 @@ const App = () => {
               gap="var(--salt-spacing-fixed-100)"
               style={{ listStyle: 'none' }}
             >
-              {routes.map((r) => (
-                <li key={r.href}>
-                  <NavigationItem
-                    href={r.href}
-                    orientation="vertical"
-                    render={<Link to={r.href} />}
+              {routes.map((r) =>
+                r.isProtected ? (
+                  authContext.user?.role === 'analyst' && (
+                    <NavigationLink
+                      key={`${r.href}_navlink`}
+                      route={r}
+                      active={location.pathname === r.href}
+                    />
+                  )
+                ) : (
+                  <NavigationLink
+                    key={`${r.href}_navlink`}
+                    route={r}
                     active={location.pathname === r.href}
-                  >
-                    {r.title}
-                  </NavigationItem>
-                </li>
-              ))}
+                  />
+                )
+              )}
             </StackLayout>
           </BorderItem>
         )}
@@ -157,10 +175,25 @@ const App = () => {
             <Routes>
               {authContext?.isAuthenticated ? (
                 <>
-                  {routes.map((r) => (
-                    <Route path={r.href} element={<r.RouteComponent />} />
-                  ))}
+                  {routes.map((r) =>
+                    r.isProtected ? (
+                      authContext.user?.role === 'analyst' && (
+                        <Route
+                          key={`${r.href}_route`}
+                          path={r.href}
+                          element={<r.RouteComponent />}
+                        />
+                      )
+                    ) : (
+                      <Route
+                        key={`${r.href}_route`}
+                        path={r.href}
+                        element={<r.RouteComponent />}
+                      />
+                    )
+                  )}
                   <Route path="/profile" element={<ProfileRoute />} />
+                  <Route path="/*" element={<NotFoundRoute />} />
                 </>
               ) : (
                 <>
