@@ -28,17 +28,13 @@ const LoginRoute = () => {
     try {
       setIsError(false)
 
-      const res = await load(
+      await load(
         authContext?.loginUser({
           email: email,
           password: password
         }),
         setIsLoading
       )
-
-      if (res) {
-        authContext?.setAuthentication(true, res.user)
-      }
 
       resetForm()
       navigate('/')

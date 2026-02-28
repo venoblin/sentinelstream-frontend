@@ -25,11 +25,7 @@ const AvatarMenu = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await load(authContext?.logoutUser(), setIsLoading)
-
-      if (res) {
-        authContext?.setAuthentication(false, null)
-      }
+      await load(authContext?.logoutUser(), setIsLoading)
     } catch {
       setIsError(true)
     }

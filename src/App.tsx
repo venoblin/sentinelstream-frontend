@@ -77,22 +77,9 @@ const App = () => {
     }
   ]
 
-  const checkSession = async () => {
-    try {
-      const res = await authContext?.getSession()
-
-      if (res) {
-        authContext?.setAuthentication(true, res.user)
-      }
-    } catch {
-      authContext?.setAuthentication(false, null)
-    } finally {
-      setIsInitializing(false)
-    }
-  }
-
   useEffect(() => {
-    checkSession()
+    authContext?.checkSession()
+    setIsInitializing(false)
   }, [])
 
   useEffect(() => {

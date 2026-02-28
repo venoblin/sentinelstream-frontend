@@ -12,25 +12,35 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
   const loginUser = async (payload: UserLoginType) => {
     const res = await login(payload)
 
-    return res.data
+    if (res) {
+      setAuthentication(true, res.data.user)
+    }
   }
 
   const registerUser = async (payload: UserPayloadType) => {
-    const res = await register(payload)
+    const registerRes = await register(payload)
 
-    return res.data
-  }
-
-  const getSession = async () => {
-    const res = await session()
-
-    return res.data
+    if (registerRes) {
+      await loginUser({
+        email: payload.email,
+        password: payload.password
+      })
+    }
   }
 
   const logoutUser = async () => {
-    const res = await logout()
+    await logout()
+    setAuthentication(false, null)
+  }
 
-    return res.data
+  const checkSession = async () => {
+    const res = await session()
+
+    if (res) {
+      setAuthentication(true, res.data.user)
+    } else {
+      setAuthentication(false, null)
+    }
   }
 
   const setAuthentication = (authenticated: boolean, user: UserType | null) => {
@@ -44,10 +54,9 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
         isAuthenticated,
         loginUser,
         registerUser,
-        getSession,
+        checkSession,
         logoutUser,
-        user,
-        setAuthentication
+        user
       }}
     >
       {props.children}
