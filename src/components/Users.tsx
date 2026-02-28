@@ -5,7 +5,7 @@ import Toast from '../components/Toast'
 import { load } from '../utils'
 import Loading from '../components/Loading'
 import UserCard from '../components/UserCard'
-import { FlexLayout } from '@salt-ds/core'
+import { FlexItem, FlexLayout } from '@salt-ds/core'
 
 const Users = (props: { role: 'user' | 'analyst' }) => {
   const [users, setUsers] = useState<UserType[] | []>([])
@@ -43,9 +43,11 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
       )}
 
       {users.length ? (
-        <FlexLayout justify="center" align="center">
+        <FlexLayout wrap={true}>
           {users.map((a) => (
-            <UserCard key={a.id} user={a} />
+            <FlexItem key={a.id}>
+              <UserCard user={a} />
+            </FlexItem>
           ))}
         </FlexLayout>
       ) : (
