@@ -7,8 +7,8 @@ export interface TransactionType {
   merchant: string
   createdAt: string
   updatedAt: string
-  locationCity: string | null
-  locationCountry: string | null
+  locationCity: string
+  locationCountry: string
   status: 'PENDING' | 'APPROVED' | 'FLAGGED' | 'BLOCKED' | 'REVERSED'
   riskScore: number
 }

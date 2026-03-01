@@ -40,11 +40,11 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
         />
       )}
 
-      {users.length ? (
+      {users.length > 0 ? (
         <FlexLayout wrap={true}>
-          {users.map((a) => (
-            <FlexItem key={a.id}>
-              <UserCard user={a} />
+          {users.map((u) => (
+            <FlexItem key={u.id}>
+              <UserCard user={u} />
             </FlexItem>
           ))}
         </FlexLayout>

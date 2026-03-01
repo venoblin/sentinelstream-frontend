@@ -4,12 +4,15 @@ import Toast from '../components/Toast'
 import { AuthContext } from '../contexts/AuthContext'
 import { load } from '../utils'
 import { getAllTransactions } from '../services/api'
+import TransactionCard from '../components/TransactionCard'
+import { FlexItem, FlexLayout } from '@salt-ds/core'
+import type { TransactionType } from '../types/transaction'
 
 const TransactionsRoute = () => {
   const authContext = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
-  const [transactions, setTransactions] = useState([])
+  const [transactions, setTransactions] = useState<TransactionType[] | []>([])
 
   const getTransactions = async () => {
     try {
@@ -49,6 +52,18 @@ const TransactionsRoute = () => {
       )}
 
       <h1>Transactions</h1>
+
+      {transactions.length > 0 ? (
+        <FlexLayout wrap={true}>
+          {transactions.map((t) => (
+            <FlexItem key={t.id}>
+              <TransactionCard transaction={t} />
+            </FlexItem>
+          ))}
+        </FlexLayout>
+      ) : (
+        <p>There are no transactions</p>
+      )}
     </>
   )
 }
