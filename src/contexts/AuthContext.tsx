@@ -12,9 +12,7 @@ export const AuthProvider = (props: React.PropsWithChildren) => {
   const loginUser = async (payload: UserLoginType) => {
     const res = await login(payload)
 
-    if (res) {
-      setAuthentication(true, res.data.user)
-    }
+    setAuthentication(true, res.data.user)
   }
 
   const registerUser = async (payload: UserPayloadType) => {

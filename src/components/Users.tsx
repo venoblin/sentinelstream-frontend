@@ -12,20 +12,18 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
 
-  const getAnalysts = async () => {
+  const getUsers = async () => {
     try {
       const res = await load(getAllUsers(`role=${props.role}`), setIsLoading)
 
-      if (res) {
-        setUsers(res.data.users)
-      }
+      setUsers(res.data.users)
     } catch {
       setIsError(true)
     }
   }
 
   useEffect(() => {
-    getAnalysts()
+    getUsers()
   }, [])
 
   if (isLoading) {
