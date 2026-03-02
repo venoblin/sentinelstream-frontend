@@ -17,9 +17,9 @@ export interface AuditLogType {
     | 'FALSE_POSITIVE'
   actorName: string
   notes: string
-  createdAt: string
-  updatedAt: string
   analyst: UserType | null
   fraudRule: FraudRuleType | null
   transaction: TransactionType
+  createdAt: string
+  updatedAt: string
 }

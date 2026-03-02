@@ -1,3 +1,8 @@
+import type { DeviceType } from './device'
+import type { FraudRuleType } from './fraudRule'
+import type { AuditLogType } from './log'
+import type { TransactionType } from './transaction'
+
 interface UserBaseType {
   email: string
   firstName: string
@@ -22,8 +27,8 @@ export interface UserType extends UserBaseType {
   isActive: boolean
   createdAt: string
   updatedAt: string
-  transactions: []
-  devices: []
-  createdFraudRules: []
-  auditLogs: []
+  transactions: TransactionType[] | []
+  devices: DeviceType[] | []
+  createdFraudRules: FraudRuleType[] | []
+  auditLogs: AuditLogType[] | []
 }
