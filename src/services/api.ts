@@ -11,3 +11,9 @@ export const getAllTransactions = async (query?: string) => {
 
   return await Client.get('/api/transactions')
 }
+
+export const getAllDevices = async (query?: string) => {
+  if (query) return await Client.get(`/api/device-fingerprints?${query}`)
+
+  return await Client.get('/api/device-fingerprints')
+}
