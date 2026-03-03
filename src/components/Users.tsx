@@ -17,7 +17,6 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
     { headerName: 'First Name', field: 'firstName' },
     { headerName: 'Last Name', field: 'lastName' },
     { headerName: 'Email', field: 'email', width: 300 },
-    { headerName: 'City', field: 'locationCity' },
     { headerName: 'Country', field: 'locationCountry' },
     { headerName: 'Active', field: 'isActive' }
   ]
