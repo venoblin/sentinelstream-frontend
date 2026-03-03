@@ -15,9 +15,9 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
   const filterColumns: ColDef[] = [
     { headerName: 'First Name', field: 'firstName' },
     { headerName: 'Last Name', field: 'lastName' },
-    { headerName: 'Risk Score', field: 'riskScore' },
     { headerName: 'Email', field: 'email', width: 300 },
-    { headerName: 'Country', field: 'locationCity' },
+    { headerName: 'City', field: 'locationCity' },
+    { headerName: 'Country', field: 'locationCountry' },
     { headerName: 'Active', field: 'isActive' }
   ]
 

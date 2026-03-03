@@ -1,18 +1,27 @@
+import type { TransactionType } from '../types/transaction'
+import type { ColDef } from 'ag-grid-community'
 import { useContext, useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
 import { AuthContext } from '../contexts/AuthContext'
 import { load } from '../utils'
 import { getAllTransactions } from '../services/api'
-import TransactionCard from '../components/TransactionCard'
-import { FlexItem, FlexLayout } from '@salt-ds/core'
-import type { TransactionType } from '../types/transaction'
+import Grid from '../components/Grid'
 
 const TransactionsRoute = () => {
   const authContext = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
   const [transactions, setTransactions] = useState<TransactionType[] | []>([])
+
+  const filterColumns: ColDef[] = [
+    { headerName: 'Amount', field: 'amount' },
+    { headerName: 'currency', field: 'currency' },
+    { headerName: 'Merchant', field: 'merchant' },
+    { headerName: 'Channel', field: 'transactionChannel' },
+    { headerName: 'Risk Score', field: 'riskScore' },
+    { headerName: 'Status', field: 'status' }
+  ]
 
   const getTransactions = async () => {
     try {
@@ -54,13 +63,7 @@ const TransactionsRoute = () => {
       <h1>Transactions</h1>
 
       {transactions.length > 0 ? (
-        <FlexLayout wrap={true}>
-          {transactions.map((t) => (
-            <FlexItem key={t.id}>
-              <TransactionCard transaction={t} />
-            </FlexItem>
-          ))}
-        </FlexLayout>
+        <Grid filterColumns={filterColumns} data={transactions} />
       ) : (
         <p>There are no transactions</p>
       )}
