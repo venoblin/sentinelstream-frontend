@@ -15,6 +15,7 @@ const TransactionsRoute = () => {
   const [transactions, setTransactions] = useState<TransactionType[] | []>([])
 
   const filterColumns: ColDef[] = [
+    { headerName: 'ID', field: 'id' },
     { headerName: 'Amount', field: 'amount' },
     { headerName: 'Currency', field: 'currency' },
     { headerName: 'Merchant', field: 'merchant', width: 250 },

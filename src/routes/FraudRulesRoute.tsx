@@ -13,10 +13,12 @@ const FraudRulesRoute = () => {
   const [fraudRules, setFraudRules] = useState<FraudRuleType[] | []>([])
 
   const filterColumns: ColDef[] = [
+    { headerName: 'ID', field: 'id' },
     { headerName: 'Name', field: 'ruleName', width: 225 },
     { headerName: 'Version', field: 'version' },
     { headerName: 'Risk Score Impact', field: 'riskScoreImpact', width: 200 },
-    { headerName: 'Active', field: 'isActive' }
+    { headerName: 'Active', field: 'isActive' },
+    { headerName: 'Creator ID', field: 'creator.id' }
   ]
 
   const getFraudRules = async () => {

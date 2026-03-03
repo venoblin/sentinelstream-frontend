@@ -15,6 +15,7 @@ const DevicesRoute = () => {
   const [devices, setDevices] = useState<DeviceType[] | []>([])
 
   const filterColumns: ColDef[] = [
+    { headerName: 'ID', field: 'id' },
     { headerName: 'Agent', field: 'userAgent', width: 650 },
     { headerName: 'IP', field: 'ipAddress' },
     { headerName: 'Risk Score', field: 'riskScore' },

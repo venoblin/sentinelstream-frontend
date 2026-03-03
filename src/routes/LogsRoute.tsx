@@ -13,9 +13,11 @@ const LogsRoute = () => {
   const [isError, setIsError] = useState<boolean>(false)
 
   const filterColumns: ColDef[] = [
+    { headerName: 'ID', field: 'id' },
     { headerName: 'Actor', field: 'actorName' },
     { headerName: 'Action Taken', field: 'actionTaken' },
-    { headerName: 'Notes', field: 'notes', width: 250 }
+    { headerName: 'Notes', field: 'notes', width: 250 },
+    { headerName: 'Transaction ID', field: 'transaction.id' }
   ]
 
   const getAuditLogs = async () => {

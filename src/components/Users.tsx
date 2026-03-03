@@ -13,6 +13,7 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
   const [isError, setIsError] = useState<boolean>(false)
 
   const filterColumns: ColDef[] = [
+    { headerName: 'ID', field: 'id' },
     { headerName: 'First Name', field: 'firstName' },
     { headerName: 'Last Name', field: 'lastName' },
     { headerName: 'Email', field: 'email', width: 300 },
