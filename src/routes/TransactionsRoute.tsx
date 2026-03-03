@@ -18,7 +18,7 @@ const TransactionsRoute = () => {
     { headerName: 'ID', field: 'id' },
     { headerName: 'Amount', field: 'amount' },
     { headerName: 'Currency', field: 'currency' },
-    { headerName: 'Merchant', field: 'merchant', width: 250 },
+    { headerName: 'Merchant', field: 'merchant', width: 200 },
     { headerName: 'Channel', field: 'transactionChannel' },
     { headerName: 'Risk Score', field: 'riskScore' },
     { headerName: 'Status', field: 'status' }

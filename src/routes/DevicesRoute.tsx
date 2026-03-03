@@ -16,7 +16,7 @@ const DevicesRoute = () => {
 
   const filterColumns: ColDef[] = [
     { headerName: 'ID', field: 'id' },
-    { headerName: 'Agent', field: 'userAgent', width: 650 },
+    { headerName: 'Agent', field: 'userAgent', width: 400 },
     { headerName: 'IP', field: 'ipAddress' },
     { headerName: 'Risk Score', field: 'riskScore' },
     { headerName: 'Banned', field: 'isBanned' }
