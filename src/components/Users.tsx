@@ -1,16 +1,25 @@
 import type { UserType } from '../types/user'
+import type { ColDef } from 'ag-grid-community'
 import { useEffect, useState } from 'react'
 import { getAllUsers } from '../services/api'
 import Toast from '../components/Toast'
 import { load } from '../utils'
 import Loading from '../components/Loading'
-import UserCard from '../components/UserCard'
-import { FlexItem, FlexLayout } from '@salt-ds/core'
+import Grid from './Grid'
 
 const Users = (props: { role: 'user' | 'analyst' }) => {
   const [users, setUsers] = useState<UserType[] | []>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
+
+  const filterColumns: ColDef[] = [
+    { headerName: 'First Name', field: 'firstName' },
+    { headerName: 'Last Name', field: 'lastName' },
+    { headerName: 'Risk Score', field: 'riskScore' },
+    { headerName: 'Email', field: 'email', width: 300 },
+    { headerName: 'Country', field: 'locationCity' },
+    { headerName: 'Active', field: 'isActive' }
+  ]
 
   const getUsers = async () => {
     try {
@@ -41,13 +50,7 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
       )}
 
       {users.length > 0 ? (
-        <FlexLayout wrap={true}>
-          {users.map((u) => (
-            <FlexItem key={u.id}>
-              <UserCard user={u} />
-            </FlexItem>
-          ))}
-        </FlexLayout>
+        <Grid filterColumns={filterColumns} data={users} />
       ) : (
         <p>There are no {`${props.role}s`}</p>
       )}

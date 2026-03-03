@@ -5,11 +5,22 @@ const Grid = (props: {
   filterColumns: (ColDef<any, any> | ColGroupDef<any>)[] | null | undefined
   data: any[] | null | undefined
 }) => {
+  const baseCol: ColDef = {
+    filter: 'agTextColumnFilter',
+    suppressHeaderMenuButton: true,
+    pinned: 'left',
+    floatingFilter: true,
+    width: 150,
+    resizable: true
+  }
+
   return (
-    <div>
+    <div style={{ height: '600px', width: '100%' }}>
       <AgGridReact
         defaultColDef={{ floatingFilter: true }}
-        columnDefs={props.filterColumns}
+        columnDefs={props.filterColumns?.map((f) => {
+          return { ...baseCol, ...f }
+        })}
         rowData={props.data}
         suppressMenuHide={false}
       />

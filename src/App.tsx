@@ -1,6 +1,7 @@
 import './App.css'
-import Logo from './components/Logo'
 import type { RouteType } from './types'
+import Logo from './components/Logo'
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community'
 import { Link, Routes, Route, useLocation, useNavigate } from 'react-router'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -25,6 +26,8 @@ import ProfileRoute from './routes/ProfileRoute'
 import FraudRulesRoute from './routes/FraudRulesRoute'
 import NavigationLink from './components/NavigationLink'
 import NotFoundRoute from './routes/NotFoundRoute'
+
+ModuleRegistry.registerModules([AllCommunityModule])
 
 const App = () => {
   const authContext = useContext(AuthContext)
