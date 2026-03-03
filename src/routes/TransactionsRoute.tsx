@@ -16,8 +16,8 @@ const TransactionsRoute = () => {
 
   const filterColumns: ColDef[] = [
     { headerName: 'Amount', field: 'amount' },
-    { headerName: 'currency', field: 'currency' },
-    { headerName: 'Merchant', field: 'merchant' },
+    { headerName: 'Currency', field: 'currency' },
+    { headerName: 'Merchant', field: 'merchant', width: 250 },
     { headerName: 'Channel', field: 'transactionChannel' },
     { headerName: 'Risk Score', field: 'riskScore' },
     { headerName: 'Status', field: 'status' }

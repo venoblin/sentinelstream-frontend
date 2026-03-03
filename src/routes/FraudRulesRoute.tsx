@@ -1,16 +1,23 @@
+import type { ColDef } from 'ag-grid-community'
+import type { FraudRuleType } from '../types/fraudRule'
 import { useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
 import { load } from '../utils'
 import { getAllFraudRules } from '../services/api'
-import { FlexItem, FlexLayout } from '@salt-ds/core'
-import type { FraudRuleType } from '../types/fraudRule'
-import FraudRuleCard from '../components/FraudRuleCard'
+import Grid from '../components/Grid'
 
 const FraudRulesRoute = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
   const [fraudRules, setFraudRules] = useState<FraudRuleType[] | []>([])
+
+  const filterColumns: ColDef[] = [
+    { headerName: 'Name', field: 'ruleName', width: 225 },
+    { headerName: 'Version', field: 'version' },
+    { headerName: 'Risk Score Impact', field: 'riskScoreImpact', width: 200 },
+    { headerName: 'Active', field: 'isActive' }
+  ]
 
   const getFraudRules = async () => {
     try {
@@ -43,13 +50,7 @@ const FraudRulesRoute = () => {
       <h1>Fraud Rules</h1>
 
       {fraudRules.length > 0 ? (
-        <FlexLayout wrap={true}>
-          {fraudRules.map((f) => (
-            <FlexItem key={f.id}>
-              <FraudRuleCard fraudRule={f} />
-            </FlexItem>
-          ))}
-        </FlexLayout>
+        <Grid filterColumns={filterColumns} data={fraudRules} />
       ) : (
         <p>There are no fraud rules</p>
       )}
