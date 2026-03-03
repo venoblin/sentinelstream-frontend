@@ -1,25 +1,20 @@
-import { AgGridReact } from 'ag-grid-react'
 import type { ColDef, ColGroupDef } from 'ag-grid-community'
+import { AgGridReact } from 'ag-grid-react'
+import { useAgGridHelpers } from '../hooks/useAgGridHelpers'
 
 const Grid = (props: {
   filterColumns: (ColDef<any, any> | ColGroupDef<any>)[] | null | undefined
   data: any[] | null | undefined
 }) => {
-  const baseCol: ColDef = {
-    filter: 'agTextColumnFilter',
-    suppressHeaderMenuButton: true,
-    pinned: 'left',
-    floatingFilter: true,
-    width: 150,
-    resizable: true
-  }
+  const { containerProps, agGridProps } = useAgGridHelpers()
 
   return (
-    <div style={{ height: '600px', width: '100%' }}>
+    <div {...containerProps}>
       <AgGridReact
+        {...agGridProps}
         defaultColDef={{ floatingFilter: true }}
         columnDefs={props.filterColumns?.map((f) => {
-          return { ...baseCol, ...f }
+          return { filter: 'agTextColumnFilter', ...f }
         })}
         rowData={props.data}
         suppressMenuHide={false}
