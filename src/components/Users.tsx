@@ -1,5 +1,6 @@
 import type { UserType } from '../types/user'
-import type { ColDef } from 'ag-grid-community'
+import type { ColDef, ICellRendererParams } from 'ag-grid-community'
+import { Link } from 'react-router'
 import { useEffect, useState } from 'react'
 import { getAllUsers } from '../services/api'
 import Toast from '../components/Toast'
@@ -13,7 +14,15 @@ const Users = (props: { role: 'user' | 'analyst' }) => {
   const [isError, setIsError] = useState<boolean>(false)
 
   const filterColumns: ColDef[] = [
-    { headerName: 'ID', field: 'id' },
+    {
+      headerName: 'ID',
+      field: 'id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return (
+          <Link to={`/${props.role}s/${params.value}`}>{params.value}</Link>
+        )
+      }
+    },
     { headerName: 'First Name', field: 'firstName' },
     { headerName: 'Last Name', field: 'lastName' },
     { headerName: 'Email', field: 'email', width: 300 },

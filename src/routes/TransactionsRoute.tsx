@@ -1,5 +1,6 @@
 import type { TransactionType } from '../types/transaction'
-import type { ColDef } from 'ag-grid-community'
+import type { ColDef, ICellRendererParams } from 'ag-grid-community'
+import { Link } from 'react-router'
 import { useContext, useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
@@ -15,7 +16,13 @@ const TransactionsRoute = () => {
   const [transactions, setTransactions] = useState<TransactionType[] | []>([])
 
   const filterColumns: ColDef[] = [
-    { headerName: 'ID', field: 'id' },
+    {
+      headerName: 'ID',
+      field: 'id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return <Link to={`/transactions/${params.value}`}>{params.value}</Link>
+      }
+    },
     { headerName: 'Amount', field: 'amount' },
     { headerName: 'Currency', field: 'currency' },
     { headerName: 'Merchant', field: 'merchant', width: 200 },

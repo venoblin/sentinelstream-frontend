@@ -1,12 +1,12 @@
 import Users from '../components/Users'
 
-const CustomersRoute = () => {
+const UsersRoute = () => {
   return (
     <>
-      <h1>Customers</h1>
+      <h1>Users</h1>
       <Users role="user" />
     </>
   )
 }
 
-export default CustomersRoute
+export default UsersRoute

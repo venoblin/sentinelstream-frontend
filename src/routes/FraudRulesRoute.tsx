@@ -1,5 +1,6 @@
-import type { ColDef } from 'ag-grid-community'
+import type { ColDef, ICellRendererParams } from 'ag-grid-community'
 import type { FraudRuleType } from '../types/fraudRule'
+import { Link } from 'react-router'
 import { useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
@@ -13,12 +14,24 @@ const FraudRulesRoute = () => {
   const [fraudRules, setFraudRules] = useState<FraudRuleType[] | []>([])
 
   const filterColumns: ColDef[] = [
-    { headerName: 'ID', field: 'id' },
+    {
+      headerName: 'ID',
+      field: 'id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return <Link to={`/fraud-rules/${params.value}`}>{params.value}</Link>
+      }
+    },
     { headerName: 'Name', field: 'ruleName', width: 225 },
     { headerName: 'Version', field: 'version' },
     { headerName: 'Risk Score Impact', field: 'riskScoreImpact', width: 200 },
     { headerName: 'Active', field: 'isActive' },
-    { headerName: 'Creator ID', field: 'creator.id' }
+    {
+      headerName: 'Creator ID',
+      field: 'creator.id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return <Link to={`/analysts/${params.value}`}>{params.value}</Link>
+      }
+    }
   ]
 
   const getFraudRules = async () => {

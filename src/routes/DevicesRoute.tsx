@@ -1,5 +1,6 @@
 import type { DeviceType } from '../types/device'
-import type { ColDef } from 'ag-grid-community'
+import type { ColDef, ICellRendererParams } from 'ag-grid-community'
+import { Link } from 'react-router'
 import { useContext, useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import Toast from '../components/Toast'
@@ -15,7 +16,13 @@ const DevicesRoute = () => {
   const [devices, setDevices] = useState<DeviceType[] | []>([])
 
   const filterColumns: ColDef[] = [
-    { headerName: 'ID', field: 'id' },
+    {
+      headerName: 'ID',
+      field: 'id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return <Link to={`/devices/${params.value}`}>{params.value}</Link>
+      }
+    },
     { headerName: 'Agent', field: 'userAgent', width: 400 },
     { headerName: 'IP', field: 'ipAddress' },
     { headerName: 'Risk Score', field: 'riskScore' },

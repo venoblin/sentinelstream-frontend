@@ -17,7 +17,7 @@ import AvatarMenu from './components/AvatarMenu'
 import RegisterRoute from './routes/RegisterRoute'
 import LoginRoute from './routes/LoginRoute'
 import AnalystsRoute from './routes/AnalystsRoute'
-import CustomersRoute from './routes/CustomersRoute'
+import UsersRoute from './routes/UsersRoute'
 import DashboardRoute from './routes/DashboardRoute'
 import DevicesRoute from './routes/DevicesRoute'
 import LogsRoute from './routes/LogsRoute'
@@ -49,9 +49,9 @@ const App = () => {
       isProtected: true
     },
     {
-      href: '/customers',
-      title: 'Customers',
-      RouteComponent: CustomersRoute,
+      href: '/users',
+      title: 'Users',
+      RouteComponent: UsersRoute,
       isProtected: true
     },
     {

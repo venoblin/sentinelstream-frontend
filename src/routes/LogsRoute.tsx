@@ -1,5 +1,6 @@
 import type { AuditLogType } from '../types/log'
-import type { ColDef } from 'ag-grid-community'
+import type { ColDef, ICellRendererParams } from 'ag-grid-community'
+import { Link } from 'react-router'
 import { useEffect, useState } from 'react'
 import Toast from '../components/Toast'
 import Loading from '../components/Loading'
@@ -13,11 +14,23 @@ const LogsRoute = () => {
   const [isError, setIsError] = useState<boolean>(false)
 
   const filterColumns: ColDef[] = [
-    { headerName: 'ID', field: 'id' },
+    {
+      headerName: 'ID',
+      field: 'id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return <Link to={`/logs/${params.value}`}>{params.value}</Link>
+      }
+    },
     { headerName: 'Actor', field: 'actorName' },
     { headerName: 'Action Taken', field: 'actionTaken' },
     { headerName: 'Notes', field: 'notes', width: 250 },
-    { headerName: 'Transaction ID', field: 'transaction.id' }
+    {
+      headerName: 'Transaction ID',
+      field: 'transaction.id',
+      cellRenderer: (params: ICellRendererParams) => {
+        return <Link to={`/transactions/${params.value}`}>{params.value}</Link>
+      }
+    }
   ]
 
   const getAuditLogs = async () => {
