@@ -26,6 +26,7 @@ import ProfileRoute from './routes/ProfileRoute'
 import FraudRulesRoute from './routes/FraudRulesRoute'
 import NavigationLink from './components/NavigationLink'
 import NotFoundRoute from './routes/NotFoundRoute'
+import UserRoute from './routes/UserRoute'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
@@ -183,6 +184,12 @@ const App = () => {
                         element={<r.RouteComponent />}
                       />
                     )
+                  )}
+                  {authContext.user?.role === 'analyst' && (
+                    <>
+                      <Route path="/users/:id" element={<UserRoute />} />
+                      <Route path="/analysts/:id" element={<UserRoute />} />
+                    </>
                   )}
                   <Route path="/profile" element={<ProfileRoute />} />
                   <Route path="/*" element={<NotFoundRoute />} />

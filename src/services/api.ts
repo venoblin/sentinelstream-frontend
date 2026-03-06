@@ -1,5 +1,11 @@
 import Client from './client'
 
+export const getSingleUser = async (id: string | undefined) => {
+  if (!id) throw new Error('Id is undefined')
+
+  return await Client.get(`/api/users/${id}`)
+}
+
 export const getAllUsers = async (query?: string) => {
   if (query) return await Client.get(`/api/users?${query}`)
 
